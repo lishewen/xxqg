@@ -1,4 +1,6 @@
 # 此脚本最后测试于2021/5/30，运行正常
+# 修改为支持edge的版本
+# edge driver下载位置：https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
 
 # 声明
 

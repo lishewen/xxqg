@@ -1,6 +1,6 @@
 from random import uniform
 from time import sleep
-
+from msedge.selenium_tools import Edge
 
 def logout(browser):
     browser.get('https://www.xuexi.cn/')
@@ -10,5 +10,5 @@ def logout(browser):
 
 
 if __name__ == '__main__':
-    browser = webdriver.Chrome()
+    browser = Edge()
     logout(browser)

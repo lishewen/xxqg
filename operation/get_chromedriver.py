@@ -8,15 +8,6 @@ from zipfile import ZipFile
 
 def do(program_path):
     try:
-        url = 'http://npm.taobao.org/mirrors/chromedriver/'
-        latest_version = get_latest_version(url)
-        version = get_version(program_path)
-        if version != latest_version:
-            print('--> 当前chromedriver不是最新，准备进行更新')
-            download_url = url + latest_version + '/chromedriver_win32.zip'  # 拼接下载链接
-            download_chromedriver(download_url)
-            unzip_file(program_path)
-            print('--> chromedriver更新成功\n')
         return True
     except:
         print(str(format_exc()))
@@ -61,7 +52,7 @@ def get_version(path):
     :return:
     """
     import os
-    version_info = Popen([os.path.join(path, 'chromedriver.exe'), '--version'], shell=True,
+    version_info = Popen([os.path.join(path, 'msedgedriver.exe'), '--version'], shell=True,
                          stdout=PIPE).stdout.read().decode()
     return version_info.split(' ')[1]
 

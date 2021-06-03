@@ -5,8 +5,7 @@ from traceback import format_exc
 from getData import get_article, get_video
 from operation import scan_article, watch_video, exam, get_chromedriver
 from userOperation import login, check
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from msedge.selenium_tools import Edge, EdgeOptions
 from random import randint
 
 
@@ -83,18 +82,19 @@ if __name__ == "__main__":
         import sys
         sys.exit(1)
 
-    chrome_options = Options()
+    options = EdgeOptions()
+    options.use_chromium = True
     # 防止检测
-    chrome_options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    chrome_options.add_experimental_option('useAutomationExtension', False)
+    options.add_experimental_option('excludeSwitches', ['enable-automation'])
+    options.add_experimental_option('useAutomationExtension', False)
 
-    chrome_options.add_argument("--mute-audio")  # 静音
-    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])  # 禁止打印日志
-    chrome_options.add_argument('--ignore-certificate-errors')  # 忽略证书错误
-    chrome_options.add_argument('--ignore-ssl-errors')  # 忽略ssl错误
-    chrome_options.add_argument('–log-level=3')
+    options.add_argument("--mute-audio")  # 静音
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])  # 禁止打印日志
+    options.add_argument('--ignore-certificate-errors')  # 忽略证书错误
+    options.add_argument('--ignore-ssl-errors')  # 忽略ssl错误
+    options.add_argument('–log-level=3')
 
-    browser = webdriver.Chrome(os.path.join(os.getcwd(), 'chromedriver.exe'), options=chrome_options)
+    browser = Edge(os.path.join(os.getcwd(), 'msedgedriver.exe'), options=options)
     browser.maximize_window()
 
     exam_temp_Path = './data/exam_temp.json'
