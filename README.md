@@ -33,6 +33,10 @@
 3. 答题时如果报如下错：<br>
    `Message: element click intercepted: Element xxxxxxxxxxx is not clickable at point (xxx, xxx). Other element would receive the click: xxxxxxxxxxxxxxxxxxxx`<br>这是因为浏览器窗口太小了，尝试将浏览器全屏或将窗口拉大一点
 4. 如果使用时还有其他问题，欢迎提`issue`反馈
+5. 缺少msedge.selenium_tools包
+```
+pip install msedge-selenium-tools
+```
 
 # 运行效果图
 
