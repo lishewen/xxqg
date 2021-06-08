@@ -203,7 +203,7 @@ def run_exam(browser):
                     try:
                         blank_ans = tips[tips_i]
                     except:
-                        blank_ans = '未找到提示'
+                        blank_ans = '不知道'
                     print('-->    第{0}空答案可能是： {1}'.format(i + 1, blank_ans))
                     blanks[i].send_keys(blank_ans)
                     tips_i += 1
