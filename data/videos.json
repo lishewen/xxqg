@@ -1133,30 +1133,6 @@
     },
     {
         "editor": "[\"常金光\"]",
-        "publishTime": "2021-03-25 08:45:20",
-        "itemType": "kPureVideo",
-        "author": "",
-        "crossTime": 0,
-        "source": "video-platform-operation_贵阳广播电视台",
-        "nameB": "",
-        "title": "守护",
-        "type": "shipin",
-        "url": "https://www.xuexi.cn/lgpage/detail/index.html?id=8484661525723335409&item_id=8484661525723335409",
-        "showSource": "贵阳广播电视台",
-        "itemId": "8484661525723335409",
-        "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/b1c288269eb74376a91ef6f0944f21eb.jpg",
-        "auditTime": "2021-03-25 09:06:04",
-        "channelNames": [
-            "法治微电影"
-        ],
-        "producer": "采编系统",
-        "channelIds": [
-            "4kaknbku5qd8"
-        ],
-        "dataValid": true
-    },
-    {
-        "editor": "[\"常金光\"]",
         "publishTime": "2021-03-24 09:07:06",
         "itemType": "kPureVideo",
         "author": "梅开洋 张敏 陈博文 王栋 王浪",
@@ -2178,30 +2154,6 @@
         "itemId": "3533492822404457501",
         "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/1c620630debd4432b1833281a13565c3.jpg",
         "auditTime": "2021-01-20 11:01:13",
-        "channelNames": [
-            "法治微电影"
-        ],
-        "producer": "采编系统",
-        "channelIds": [
-            "4kaknbku5qd8"
-        ],
-        "dataValid": true
-    },
-    {
-        "editor": "[\"刘静\"]",
-        "publishTime": "2021-01-19 09:24:52",
-        "itemType": "kPureVideo",
-        "author": "重庆市公安局九龙坡区分局",
-        "crossTime": 0,
-        "source": "video-platform-operation_中宣部宣教局",
-        "nameB": "",
-        "title": "非常案件",
-        "type": "shipin",
-        "url": "https://www.xuexi.cn/lgpage/detail/index.html?id=7422616287852070030&item_id=7422616287852070030",
-        "showSource": "中宣部宣教局",
-        "itemId": "7422616287852070030",
-        "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/eb89c8f2a6674b51a5be4b6712114554.jpg",
-        "auditTime": "2021-01-20 12:10:41",
         "channelNames": [
             "法治微电影"
         ],
@@ -3897,32 +3849,6 @@
         "itemType": "kPureVideo",
         "author": "",
         "crossTime": 0,
-        "source": "video-platform-operation_山东省日照市岚山区人民法院",
-        "nameB": "",
-        "title": "苏醒",
-        "type": "shipin",
-        "url": "https://www.xuexi.cn/lgpage/detail/index.html?id=12499074750753422856&item_id=12499074750753422856",
-        "showSource": "山东省日照市岚山区人民法院",
-        "itemId": "12499074750753422856",
-        "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/222d5fe805b74baa971abbe54a247045.jpg",
-        "auditTime": "2020-10-19 10:52:26",
-        "channelNames": [
-            "法治微电影",
-            "微电影"
-        ],
-        "producer": "采编系统",
-        "channelIds": [
-            "4kaknbku5qd8",
-            "1am3asi2enl"
-        ],
-        "dataValid": true
-    },
-    {
-        "editor": "[\"常金光\"]",
-        "publishTime": "2020-10-16 14:17:17",
-        "itemType": "kPureVideo",
-        "author": "",
-        "crossTime": 0,
         "source": "video-platform-operation_内蒙古自治区巴林左旗人民法院",
         "nameB": "",
         "title": "铭记",
@@ -3966,32 +3892,6 @@
         "channelIds": [
             "4kaknbku5qd8",
             "1am3asi2enl"
-        ],
-        "dataValid": true
-    },
-    {
-        "editor": "[\"刘静\"]",
-        "publishTime": "2020-10-16 14:17:17",
-        "itemType": "kPureVideo",
-        "author": "",
-        "crossTime": 0,
-        "source": "video-platform-operation_山西省西安市碑林区人民法院",
-        "nameB": "",
-        "title": "心灯",
-        "type": "shipin",
-        "url": "https://www.xuexi.cn/lgpage/detail/index.html?id=8875234391968002690&item_id=8875234391968002690",
-        "showSource": "山西省西安市碑林区人民法院",
-        "itemId": "8875234391968002690",
-        "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/79caec6cec8b4dba866de4f408901a43.jpg",
-        "auditTime": "2020-10-19 10:52:22",
-        "channelNames": [
-            "微电影",
-            "法治微电影"
-        ],
-        "producer": "采编系统",
-        "channelIds": [
-            "1am3asi2enl",
-            "4kaknbku5qd8"
         ],
         "dataValid": true
     },
@@ -8210,30 +8110,6 @@
         "itemId": "2834730860350218857",
         "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/36762bec43ff43a1bc85104fc15889a5.png",
         "auditTime": "2019-12-03 09:54:37",
-        "channelNames": [
-            "法治微电影"
-        ],
-        "producer": "采编系统",
-        "channelIds": [
-            "4kaknbku5qd8"
-        ],
-        "dataValid": true
-    },
-    {
-        "editor": "[\"韩军强\"]",
-        "publishTime": "2019-11-28 16:53:40",
-        "itemType": "kPureVideo",
-        "author": "",
-        "crossTime": 0,
-        "source": "video-platform-operation_最高人民法院",
-        "nameB": "",
-        "title": "爱的信号",
-        "type": "shipin",
-        "url": "https://www.xuexi.cn/lgpage/detail/index.html?id=8998693522307542351",
-        "showSource": "最高人民法院",
-        "itemId": "8998693522307542351",
-        "thumbImage": "https://boot-img.xuexi.cn/image/1005/process/5326c2065f034d2f9435585ac67bed38.jpg",
-        "auditTime": "2019-11-29 12:35:58",
         "channelNames": [
             "法治微电影"
         ],
