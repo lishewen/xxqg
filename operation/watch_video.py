@@ -25,9 +25,11 @@ def watch_video(browser):
     sleep(round(uniform(1, 3), 2))
     browser.get(url)
     sleep(round(uniform(3, 6), 2))
-    video = browser.find_element_by_xpath('/html/body/div/div/section/div/div/div/div/div[2]/section/div/div/div/div/div/div/div/div[1]/div[2]/div/div[1]/div[1]/div/video')
-    start = browser.find_element_by_xpath(
-        '/html/body/div/div/section/div/div/div/div/div[2]/section/div/div/div/div/div/div/div/div[1]/div[2]/div/div[1]/div[1]/div/div[1]')
+    # video = browser.find_element_by_xpath('/html/body/div/div/section/div/div/div/div/div[2]/section/div/div/div/div/div/div/div/div[1]/div[2]/div/div[1]/div[1]/div/video')
+    video = browser.find_element_by_xpath('//video[1]')
+    #start = browser.find_element_by_xpath(
+    #    '/html/body/div/div/section/div/div/div/div/div[2]/section/div/div/div/div/div/div/div/div[1]/div[2]/div/div[1]/div[1]/div/div[1]')
+    start = browser.find_element_by_xpath('//video[1]/../div[1]')
     sleep(round(uniform(1, 3), 2))
     browser.execute_script('arguments[0].scrollIntoView();', video)
     try:
