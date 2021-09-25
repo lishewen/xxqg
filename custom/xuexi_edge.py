@@ -8,10 +8,11 @@ class XuexiEdge(Edge):
     """
     自定义webdriver
     """
-    def __init__(self, executable_path="msedgedriver", port=0, options=None, service_args=None,
-                 desired_capabilities=None, service_log_path=None, chrome_options=None, keep_alive=True):
-        super().__init__(executable_path, port, options, service_args, desired_capabilities, service_log_path,
-                         chrome_options, keep_alive)
+    def __init__(self, executable_path="msedgedriver", capabilities=None, port=0, verbose=False, service_log_path=None,
+                log_path=None, keep_alive=None,
+                desired_capabilities=None, service_args=None, options=None):
+        super().__init__(executable_path, capabilities, port, verbose, service_log_path, log_path,
+                        keep_alive, desired_capabilities, service_args, options)
 
     def xuexi_get(self, url):
         """
@@ -28,7 +29,7 @@ class XuexiEdge(Edge):
                 window.alert = function() {
                     return;
                 }
-              '''
+            '''
         })
         self.get(url)
         self.implicitly_wait(10)
