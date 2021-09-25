@@ -1,12 +1,17 @@
 # -*- encoding: utf-8 -*-
 from json import dumps
+from ssl import SSLEOFError
 from subprocess import call
 from traceback import format_exc
-from getData import get_article, get_video
-from operation import scan_article, watch_video, exam, get_chromedriver
-from userOperation import login, check
 from msedge.selenium_tools import Edge, EdgeOptions
+from requests.exceptions import SSLError
+from urllib3.exceptions import MaxRetryError
 from random import randint
+from custom.xuexi_edge import XuexiEdge
+from getData import get_article, get_video
+from getData.version import VERSION
+from userOperation import login, check
+from operation import scan_article, watch_video, exam, get_chromedriver, check_version
 
 
 def article_or_video():
@@ -61,7 +66,6 @@ def finally_run():
     程序最后执行的函数，包括打印信息、关闭浏览器等
     """
     browser.quit()
-
     print(r'''
       __/\\\\\\\\\\\\\____/\\\________/\\\__________/\\\\\\\\\\\\__/\\\\\\\\\\\\_____/\\\\\\\\\\\\\\\_        
        _\/\\\/////////\\\_\///\\\____/\\\/_________/\\\//////////__\/\\\////////\\\__\/\\\///////////__       
@@ -71,51 +75,77 @@ def finally_run():
            _\/\\\_______\/\\\_______\/\\\____________\/\\\_______\/\\\_\/\\\_______\/\\\_\/\\\_____________   
             _\/\\\_______\/\\\_______\/\\\____________\/\\\_______\/\\\_\/\\\_______/\\\__\/\\\_____________  
              _\/\\\\\\\\\\\\\/________\/\\\____________\//\\\\\\\\\\\\/__\/\\\\\\\\\\\\/___\/\\\_____________ 
-              _\/////////////__________\///______________\////////////____\////////////_____\///______________ 
-            ''')
+              _\/////////////__________\///______________\////////////____\////////////_____\///______________''')
+
     call('pause', shell=True)
 
 
 if __name__ == "__main__":
-    import os
-    if not get_chromedriver.do(os.getcwd()):
-        import sys
-        sys.exit(1)
-
-    options = EdgeOptions()
-    options.use_chromium = True
-    # 防止检测
-    options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    options.add_experimental_option('useAutomationExtension', False)
-
-    options.add_argument("--mute-audio")  # 静音
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])  # 禁止打印日志
-    options.add_argument('--ignore-certificate-errors')  # 忽略证书错误
-    options.add_argument('--ignore-ssl-errors')  # 忽略ssl错误
-    options.add_argument('–log-level=3')
-
-    browser = Edge(os.path.join(os.getcwd(), 'msedgedriver.exe'), options=options)
-    browser.maximize_window()
-
-    exam_temp_Path = './data/exam_temp.json'
     try:
-        with open(exam_temp_Path, 'w', encoding='utf-8') as f:
-            dataDict = {
-                'DAILY_EXAM': 'true',
-                'WEEKLY_EXAM': 'true',
-                'SPECIAL_EXAM': 'true'
-            }
-            f.write(dumps(dataDict, ensure_ascii=False, indent=4))
+        from sys import exit
+        import ctypes
+        from os import getcwd, remove, path
 
-        get_article.get_article()
-        get_video.get_video()
-        user_login()
-        randArr = []  # 存放并用于判断随机值，防止出现连续看文章或者看视频的情况
-        run()
-        print('--> 任务全部完成，程序已结束')
+        ctypes.windll.kernel32.SetConsoleTitleW('xuexi-{}'.format(VERSION))
+
+        try:
+            check_version.check()
+        except (SSLEOFError, MaxRetryError, SSLError):
+            print(str(format_exc()))
+            print('--> \033[31m网络连接失败，请检查是否开启了VPN或代理软件，如果开启了请关闭后再试\033[0m')
+            print('--> \033[31m当前版本:{}\033[0m'.format(VERSION))
+            call('pause', shell=True)
+            exit(1)
+
+        if not get_chromedriver.do(getcwd()):
+            exit(1)
+
+        options = EdgeOptions()
+        options.use_chromium = True
+        # 防止检测
+        options.add_experimental_option('excludeSwitches', ['enable-automation'])
+        options.add_experimental_option('useAutomationExtension', False)
+
+        options.add_argument("--mute-audio")  # 静音
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])  # 禁止打印日志
+        options.add_argument('--ignore-certificate-errors')  # 忽略证书错误
+        options.add_argument('--ignore-ssl-errors')  # 忽略ssl错误
+        options.add_argument('–log-level=3')
+
+        browser = XuexiEdge(path.join(getcwd(), 'msedgedriver.exe'), options=options)
+        # browser = Edge(os.path.join(os.getcwd(), 'msedgedriver.exe'), options=options)
+        browser.maximize_window()
+
+        exam_temp_Path = './data/exam_temp.json'
     except:
         print(str(format_exc()))
-        print('--> 程序异常，请尝试重启脚本')
-    finally:
-        os.remove(exam_temp_Path)
-        finally_run()
+        print('--> \033[31m程序异常，请尝试重启脚本\033[0m')
+        print('--> \033[31m当前版本:{}\033[0m'.format(VERSION))
+        call('pause', shell=True)
+    else:
+        try:
+            with open(exam_temp_Path, 'w', encoding='utf-8') as f:
+                dataDict = {
+                    'DAILY_EXAM': 'true',
+                    'WEEKLY_EXAM': 'true',
+                    'SPECIAL_EXAM': 'true'
+                }
+                f.write(dumps(dataDict, ensure_ascii=False, indent=4))
+
+            get_article.get_article()
+            get_video.get_video()
+            user_login()
+            randArr = []  # 存放并用于判断随机值，防止出现连续看文章或者看视频的情况
+            run()
+            print('--> 任务全部完成，程序已结束')
+        except (SSLEOFError, MaxRetryError, SSLError):
+            print(str(format_exc()))
+            print('--> \033[31m网络连接失败，请检查是否开启了VPN或代理软件，如果开启了请关闭后再试\033[0m')
+            print('--> \033[31m当前版本:{}\033[0m'.format(VERSION))
+        except:
+            print(str(format_exc()))
+            print('--> \033[31m程序异常，请尝试重启脚本\033[0m')
+            print('--> \033[31m当前版本:{}\033[0m'.format(VERSION))
+        finally:
+            remove(exam_temp_Path)
+            finally_run()

@@ -1,10 +1,10 @@
-from time import sleep
-from random import uniform
+# -*- encoding: utf-8 -*-
 from json import loads
 from enum import Enum
 from rich import print
 from rich.table import Table
 from datetime import datetime
+from custom.xuexi_edge import XuexiEdge
 
 
 class CheckResType(Enum):
@@ -17,7 +17,7 @@ class CheckResType(Enum):
     SPECIAL_EXAM = 6
 
 
-def check_task(browser):
+def check_task(browser: XuexiEdge):
     """
     检查任务项并返回给主程序
     :param browser: browser
@@ -46,11 +46,8 @@ def check_task(browser):
     exam_temp = loads(exam_temp)
 
     res = CheckResType.NULL
-    browser.get('https://www.xuexi.cn/index.html')
-    sleep(round(uniform(1, 3), 2))
-    browser.get('https://pc.xuexi.cn/points/my-points.html')
-    browser.implicitly_wait(3)
-    sleep(round(uniform(1, 3), 2))
+    browser.xuexi_get('https://www.xuexi.cn/index.html')
+    browser.xuexi_get('https://pc.xuexi.cn/points/my-points.html')
 
     # 获取各任务项积分
     scores = browser.find_elements_by_class_name('my-points-card-text')
@@ -58,10 +55,10 @@ def check_task(browser):
         tableRow.append(score.text.strip())
 
     # 今日积分
-    todayPoints = browser.find_element_by_xpath('//*[@id="app"]/div/div[2]/div/div[2]/div[2]/span[3]')
+    todayPoints = browser.find_elements_by_class_name('my-points-points')[0]
     tableRow.append(todayPoints.text.strip())
     # 总积分
-    allPoints = browser.find_element_by_xpath('//*[@id="app"]/div/div[2]/div/div[2]/div[2]/span[1]')
+    allPoints = browser.find_elements_by_class_name('my-points-points')[1]
     tableRow.append(allPoints.text.strip())
 
     # 打印表格
