@@ -12,7 +12,7 @@ from getData import get_article, get_video
 from getData.version import VERSION
 from userOperation import login, check
 from operation import scan_article, watch_video, exam, get_chromedriver, check_version
-
+import pyjion; pyjion.enable();pyjion.config(pgc=False)
 
 def article_or_video():
     """
