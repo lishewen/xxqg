@@ -6,6 +6,7 @@ from time import sleep
 from random import uniform
 from difflib import SequenceMatcher
 from re import findall
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from custom.xuexi_edge import XuexiEdge
 from userOperation import check
@@ -35,7 +36,8 @@ def check_exam(browser: XuexiEdge, examType):
     sleep(round(uniform(1, 2), 2))
     while True:
         flag = True  # 用来记录是否答题，答题则置为False
-        allExams = browser.find_elements_by_class_name('ant-btn-primary')
+        allExams = browser.find_elements(
+            by=By.CLASS_NAME, value='ant-btn-primary')
         for exam in allExams:
             if exam.text == '开始答题' or exam.text == '继续答题':
                 browser.execute_script('arguments[0].scrollIntoView();', exam)
@@ -46,7 +48,8 @@ def check_exam(browser: XuexiEdge, examType):
                 flag = False
                 break
         if flag:  # flag为True则执行翻页
-            nextPage = browser.find_element_by_class_name('ant-pagination-next')
+            nextPage = browser.find_element(
+                by=By.CLASS_NAME, value='ant-pagination-next')
             browser.execute_script('arguments[0].scrollIntoView();', nextPage)
             sleep(round(uniform(1, 2), 2))
             if nextPage.get_attribute('aria-disabled') == 'true':  # 检查翻页按钮是否可点击
@@ -83,7 +86,7 @@ def to_exam(browser: XuexiEdge, examType: check.CheckResType):
     sleep(round(uniform(1, 2), 2))
 
     # 获取答题按钮族
-    exam = browser.find_elements_by_class_name('big')
+    exam = browser.find_elements(by=By.CLASS_NAME, value='big')
     if examType == check.CheckResType.DAILY_EXAM:
         daily = exam[4]
         browser.execute_script('arguments[0].scrollIntoView();', daily)
@@ -117,20 +120,24 @@ def select_all(options):
 
 def run_exam(browser: XuexiEdge):
     while True:
-        content = browser.find_element_by_class_name('ant-breadcrumb')
+        content = browser.find_element(
+            by=By.CLASS_NAME, value='ant-breadcrumb')
         browser.execute_script('arguments[0].scrollIntoView();', content)
         sleep(round(uniform(2, 3), 2))
         # 题目类型
-        questionType = browser.find_element_by_class_name('q-header').text
+        questionType = browser.find_element(
+            by=By.CLASS_NAME, value='q-header').text
         # print(questionType)
         # 当前题目的坐标
-        questionIndex = int(browser.find_element_by_class_name('big').text)
+        questionIndex = int(browser.find_element(
+            by=By.CLASS_NAME, value='big').text)
         # 题目总数
-        questionCount = int(findall('/(.*)', browser.find_element_by_class_name('pager').text)[0])
+        questionCount = int(
+            findall('/(.*)', browser.find_element(by=By.CLASS_NAME, value='pager').text)[0])
         # 确定按钮
-        okBtn = browser.find_element_by_class_name('ant-btn-primary')
+        okBtn = browser.find_element(by=By.CLASS_NAME, value='ant-btn-primary')
         try:
-            browser.find_element_by_class_name('answer')
+            browser.find_element(by=By.CLASS_NAME, value='answer')
             if okBtn.text == '下一题':
                 okBtn.click()
                 sleep(round(uniform(0.2, 0.8), 2))
@@ -138,13 +145,14 @@ def run_exam(browser: XuexiEdge):
         except NoSuchElementException:
             pass
         # 提示按钮
-        tipBtn = browser.find_element_by_class_name('tips')
+        tipBtn = browser.find_element(by=By.CLASS_NAME, value='tips')
         print('--> 当前题目进度：' + str(questionIndex) + '/' + str(questionCount))
         tipBtn.click()
         sleep(round(uniform(0.2, 0.8), 2))
         try:
             # 获取所有提示内容
-            tipsContent = browser.find_element_by_class_name('line-feed').find_elements_by_tag_name('font')
+            tipsContent = browser.find_element(
+                by=By.CLASS_NAME, value='line-feed').find_elements_by_tag_name('font')
             sleep(round(uniform(0.2, 0.8), 2))
             tipBtn.click()
             tips = []
@@ -161,8 +169,10 @@ def run_exam(browser: XuexiEdge):
                 else:
                     ansDict = {}  # 存放每个选项与提示的相似度
                     for i in range(len(options)):
-                        ansDict[i] = SequenceMatcher(None, tips[0], options[i].text[3:]).ratio()
-                    ansDict = sorted(ansDict.items(), key=lambda x: x[1], reverse=True)
+                        ansDict[i] = SequenceMatcher(
+                            None, tips[0], options[i].text[3:]).ratio()
+                    ansDict = sorted(
+                        ansDict.items(), key=lambda x: x[1], reverse=True)
                     # print(ansDict)
                     print('-->    最大概率选项： ' + options[ansDict[0][0]].text[0])
                     options[ansDict[0][0]].click()
@@ -173,7 +183,8 @@ def run_exam(browser: XuexiEdge):
             elif '多选题' in questionType:
                 # 选择题，获取所有选项
                 options = browser.find_elements_by_class_name('choosable')
-                qWord = browser.find_element_by_class_name('q-body').text
+                qWord = browser.find_element(
+                    by=By.CLASS_NAME, value='q-body').text
                 bracketCount = len(findall('（）', qWord))
                 if len(options) == bracketCount:
                     select_all(options)
@@ -190,9 +201,11 @@ def run_exam(browser: XuexiEdge):
                             for i in range(len(tips)):
                                 ansDict = {}  # 存放每个选项与提示的相似度
                                 for j in range(len(options)):
-                                    ansDict[j] = SequenceMatcher(None, tips[i], options[j].text[3:]).ratio()
+                                    ansDict[j] = SequenceMatcher(
+                                        None, tips[i], options[j].text[3:]).ratio()
                                 # print(ansDict)
-                                ansDict = sorted(ansDict.items(), key=lambda x: x[1], reverse=True)
+                                ansDict = sorted(
+                                    ansDict.items(), key=lambda x: x[1], reverse=True)
                                 ans.append(ansDict[0][0])
                             ans = list(set(ans))
                             # print(ans)
@@ -244,12 +257,14 @@ def run_exam(browser: XuexiEdge):
         if questionIndex == questionCount:
             sleep(round(uniform(0.2, 0.8), 2))
             try:
-                submit = browser.find_element_by_class_name('submit-btn')
+                submit = browser.find_element(
+                    by=By.CLASS_NAME, value='submit-btn')
                 submit.click()
                 browser.implicitly_wait(10)
                 sleep(round(uniform(2.6, 4.6), 2))
             except NoSuchElementException:
-                submit = browser.find_element_by_class_name('ant-btn-primary')
+                submit = browser.find_element(
+                    by=By.CLASS_NAME, value='ant-btn-primary')
                 submit.click()
                 browser.implicitly_wait(10)
                 sleep(round(uniform(2.6, 4.6), 2))
