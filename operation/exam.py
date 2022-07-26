@@ -74,11 +74,11 @@ def check_exam(browser: XuexiEdge, examType):
             break
 
 
-def to_exam(browser: XuexiEdge, examType: check.CheckResType):
+def to_exam(browser: XuexiEdge, exam_type: check.CheckResType):
     """
     根据参数题目类型进入对应的题目
     :param browser: browser
-    :param examType: 题目类型(日、周、专)
+    :param exam_type: 题目类型(日、周、专)
     :return:
     """
     browser.xuexi_get('https://www.xuexi.cn/')
@@ -87,25 +87,25 @@ def to_exam(browser: XuexiEdge, examType: check.CheckResType):
 
     # 获取答题按钮族
     exam = browser.find_elements(by=By.CLASS_NAME, value='big')
-    if examType == check.CheckResType.DAILY_EXAM:
+    if exam_type == check.CheckResType.DAILY_EXAM:
         daily = exam[4]
         browser.execute_script('arguments[0].scrollIntoView();', daily)
         sleep(round(uniform(1, 2), 2))
         click(browser, daily)
         sleep(round(uniform(2, 4), 2))
         run_exam(browser)
-    elif examType == check.CheckResType.WEEKLY_EXAM:
-        weekly = exam[5]
-        browser.execute_script('arguments[0].scrollIntoView();', weekly)
-        sleep(round(uniform(1, 2), 2))
-        click(browser, weekly)
-        check_exam(browser, examType)
-    elif examType == check.CheckResType.SPECIAL_EXAM:
-        special = exam[6]
+    elif exam_type == check.CheckResType.SPECIAL_EXAM:
+        special = exam[5]
         browser.execute_script('arguments[0].scrollIntoView();', special)
         sleep(round(uniform(1, 2), 2))
         click(browser, special)
-        check_exam(browser, examType)
+        check_exam(browser, exam_type)
+    elif exam_type == check.CheckResType.WEEKLY_EXAM:
+        weekly = exam[6]
+        browser.execute_script('arguments[0].scrollIntoView();', weekly)
+        sleep(round(uniform(1, 2), 2))
+        click(browser, weekly)
+        check_exam(browser, exam_type)
 
 
 def select_all(options):
