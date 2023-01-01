@@ -27,7 +27,6 @@ def article_or_video():
     randArr.append(rand)
     return rand
 
-
 def user_login():
     """
     登录，循环执行，直到登录成功
@@ -36,7 +35,6 @@ def user_login():
     while not login.login(browser):
         print('--> 登录超时，正在尝试重新登录')
         continue
-
 
 def run():
     """
@@ -59,7 +57,6 @@ def run():
                 watch_video.watch_video(browser)
         else:
             exam.to_exam(browser, checkRes)
-
 
 def finally_run():
     """

@@ -32,9 +32,9 @@ def check_task(browser: XuexiEdge):
     table.add_column("视频时长", justify='center')
     table.add_column("每日答题", justify='center')
     table.add_column("专项答题", justify='center')
-    table.add_column("每周答题", justify='center')
-    table.add_column("今日累计积分", justify='center')
+    #table.add_column("每周答题", justify='center')
     table.add_column("成长总积分", justify='center')
+    table.add_column("今日累计积分", justify='center')
     tableRow = []
     settingsPath = 'data/settings.json'
     with open(settingsPath, 'r', encoding='utf-8') as f:
@@ -75,9 +75,9 @@ def check_task(browser: XuexiEdge):
                   tableRow[3],
                   tableRow[4],
                   tableRow[5],
-                  tableRow[6],
-                  tableRow[7] + '分',
-                  tableRow[8] + '分')
+                  #tableRow[6],
+                  tableRow[6] + '分',
+                  tableRow[7] + '分')
     print(table)
 
     if settings['浏览文章'] == "true" and scores[1].text != '12分/12分':
