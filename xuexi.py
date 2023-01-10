@@ -100,6 +100,7 @@ if __name__ == "__main__":
         options = EdgeOptions()
         options.use_chromium = True
         # 防止检测
+        options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option('excludeSwitches', ['enable-automation'])
         options.add_experimental_option('useAutomationExtension', False)
 
