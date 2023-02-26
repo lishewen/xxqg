@@ -4,6 +4,7 @@ from time import sleep
 from random import randint, uniform
 from rich.progress import Progress
 from custom.xuexi_edge import XuexiEdge
+from selenium.webdriver.common.by import By
 
 
 def watch_video(browser: XuexiEdge):
@@ -21,11 +22,13 @@ def watch_video(browser: XuexiEdge):
             break
 
     url = videos[randIndex]['url']
-    browser.xuexi_get('https://www.xuexi.cn/0809b8b6ab8a81a4f55ce9cbefa16eff/ae60b027cb83715fd0eeb7bb2527e88b.html')
-    browser.xuexi_get('https://www.xuexi.cn/4426aa87b0b64ac671c96379a3a8bd26/db086044562a57b441c24f2af1c8e101.html#t1jk1cdl7l-5')
+    browser.xuexi_get(
+        'https://www.xuexi.cn/0809b8b6ab8a81a4f55ce9cbefa16eff/ae60b027cb83715fd0eeb7bb2527e88b.html')
+    browser.xuexi_get(
+        'https://www.xuexi.cn/4426aa87b0b64ac671c96379a3a8bd26/db086044562a57b441c24f2af1c8e101.html#t1jk1cdl7l-5')
     browser.xuexi_get(url)
-    video = browser.find_element_by_tag_name('video')
-    start = browser.find_element_by_class_name('outter')
+    video = browser.find_element(By.TAG_NAME, 'video')
+    start = browser.find_element(By.CLASS_NAME, 'outter')
     sleep(round(uniform(1, 3), 2))
     browser.execute_script('arguments[0].scrollIntoView();', video)
     try:
@@ -48,5 +51,3 @@ def watch_video(browser: XuexiEdge):
     del videos[randIndex]
     with open(videoPath, 'w', encoding='utf-8') as f:
         f.write(dumps(videos, ensure_ascii=False, indent=4))
-
-
