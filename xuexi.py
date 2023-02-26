@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
+import os
 from json import dumps
 from ssl import SSLEOFError
 from subprocess import call
 from traceback import format_exc
-from msedge.selenium_tools import Edge, EdgeOptions
+from selenium.webdriver import Edge
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from requests.exceptions import SSLError
 from urllib3.exceptions import MaxRetryError
 from random import randint
@@ -12,7 +14,8 @@ from getData import get_article, get_video
 from getData.version import VERSION
 from userOperation import login, check
 from operation import scan_article, watch_video, exam, get_chromedriver, check_version
-#import pyjion; pyjion.enable();pyjion.config(pgc=False)
+# import pyjion; pyjion.enable();pyjion.config(pgc=False)
+
 
 def article_or_video():
     """
@@ -27,6 +30,7 @@ def article_or_video():
     randArr.append(rand)
     return rand
 
+
 def user_login():
     """
     登录，循环执行，直到登录成功
@@ -35,6 +39,7 @@ def user_login():
     while not login.login(browser):
         print('--> 登录超时，正在尝试重新登录')
         continue
+
 
 def run():
     """
@@ -58,6 +63,7 @@ def run():
         else:
             exam.to_exam(browser, checkRes)
 
+
 def finally_run():
     """
     程序最后执行的函数，包括打印信息、关闭浏览器等
@@ -74,7 +80,8 @@ def finally_run():
              _\/\\\\\\\\\\\\\/________\/\\\____________\//\\\\\\\\\\\\/__\/\\\\\\\\\\\\/___\/\\\_____________ 
               _\/////////////__________\///______________\////////////____\////////////_____\///______________''')
 
-    call('pause', shell=True)
+    # call('pause', shell=True)
+    input("Please press the Enter key to proceed")
 
 
 if __name__ == "__main__":
@@ -82,8 +89,8 @@ if __name__ == "__main__":
         from sys import exit
         import ctypes
         from os import getcwd, remove, path
-
-        ctypes.windll.kernel32.SetConsoleTitleW('xuexi-{}'.format(VERSION))
+        if get_chromedriver.PLATFROME == 'win':
+            ctypes.windll.kernel32.SetConsoleTitleW('xuexi-{}'.format(VERSION))
 
         try:
             check_version.check()
@@ -101,16 +108,24 @@ if __name__ == "__main__":
         options.use_chromium = True
         # 防止检测
         options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_experimental_option('excludeSwitches', ['enable-automation'])
+        options.add_experimental_option(
+            'excludeSwitches', ['enable-automation'])
         options.add_experimental_option('useAutomationExtension', False)
 
         options.add_argument("--mute-audio")  # 静音
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])  # 禁止打印日志
+        options.add_experimental_option(
+            'excludeSwitches', ['enable-logging'])  # 禁止打印日志
         options.add_argument('--ignore-certificate-errors')  # 忽略证书错误
         options.add_argument('--ignore-ssl-errors')  # 忽略ssl错误
         options.add_argument('–log-level=3')
 
-        browser = XuexiEdge(path.join(getcwd(), 'msedgedriver.exe'), options=options)
+        if get_chromedriver.PLATFROME == 'win':
+            browser = XuexiEdge(
+                path.join(getcwd(), get_chromedriver.EDGEDIRVER), options=options)
+        else:
+            browser = XuexiEdge(r'/usr/local/bin/msedgedriver',
+                                options=options)
+
         # browser = Edge(os.path.join(os.getcwd(), 'msedgedriver.exe'), options=options)
         browser.maximize_window()
 
@@ -119,7 +134,8 @@ if __name__ == "__main__":
         print(str(format_exc()))
         print('--> \033[31m程序异常，请尝试重启脚本\033[0m')
         print('--> \033[31m当前版本:{}\033[0m'.format(VERSION))
-        call('pause', shell=True)
+        # call('pause', shell=True)
+        input("Please press the Enter key to proceed")
     else:
         try:
             with open(exam_temp_Path, 'w', encoding='utf-8') as f:

@@ -4,3 +4,4 @@ chromedriver.exe
 /build/
 /dist/
 /data/exam_temp.json
+msedgedriver

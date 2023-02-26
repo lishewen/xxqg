@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from msedge.selenium_tools import Edge
+from selenium.webdriver import Edge
 from random import uniform
 from time import sleep
 
@@ -8,11 +8,11 @@ class XuexiEdge(Edge):
     """
     自定义webdriver
     """
-    def __init__(self, executable_path="msedgedriver", capabilities=None, port=0, verbose=False, service_log_path=None,
-                log_path=None, keep_alive=None,
-                desired_capabilities=None, service_args=None, options=None):
-        super().__init__(executable_path, capabilities, port, verbose, service_log_path, log_path,
-                        keep_alive, desired_capabilities, service_args, options)
+
+    def __init__(self, executable_path="msedgedriver", port=0, options=None, service_args=None, capabilities=None, service_log_path=None, service=None,
+                 keep_alive=False,  verbose=False):
+        super().__init__(executable_path, port, options, service_args, capabilities, service_log_path, service,
+                         keep_alive, verbose)
 
     def xuexi_get(self, url):
         """

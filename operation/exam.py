@@ -152,7 +152,7 @@ def run_exam(browser: XuexiEdge):
         try:
             # 获取所有提示内容
             tipsContent = browser.find_element(
-                by=By.CLASS_NAME, value='line-feed').find_elements_by_tag_name('font')
+                by=By.CLASS_NAME, value='line-feed').find_elements(By.TAG_NAME, 'font')
             sleep(round(uniform(0.2, 0.8), 2))
             tipBtn.click()
             tips = []
@@ -162,7 +162,7 @@ def run_exam(browser: XuexiEdge):
 
             if '单选题' in questionType:
                 # 选择题，获取所有选项
-                options = browser.find_elements_by_class_name('choosable')
+                options = browser.find_elements(By.CLASS_NAME, 'choosable')
                 if len(tips) == 0:
                     sleep(round(uniform(0.2, 0.8), 2))
                     options[0].click()
@@ -182,7 +182,7 @@ def run_exam(browser: XuexiEdge):
 
             elif '多选题' in questionType:
                 # 选择题，获取所有选项
-                options = browser.find_elements_by_class_name('choosable')
+                options = browser.find_elements(By.CLASS_NAME, 'choosable')
                 qWord = browser.find_element(
                     by=By.CLASS_NAME, value='q-body').text
                 bracketCount = len(findall('（）', qWord))
@@ -225,7 +225,7 @@ def run_exam(browser: XuexiEdge):
 
             elif '填空题' in questionType:
                 # 填空题，获取所有输入框
-                blanks = browser.find_elements_by_class_name('blank')
+                blanks = browser.find_elements(By.CLASS_NAME, 'blank')
                 tips_i = 0
                 for i in range(len(blanks)):
                     sleep(round(uniform(0.2, 0.8), 2))
@@ -244,13 +244,13 @@ def run_exam(browser: XuexiEdge):
         except UnexpectedAlertPresentException:
             alert = browser.switch_to.alert
             alert.accept()
-            otherPlace = browser.find_element_by_id('app')
+            otherPlace = browser.find_element(By.ID, 'app')
             otherPlace.click()
             sleep(round(uniform(0.2, 0.8), 2))
         except WebDriverException:
             print(str(format_exc()))
             print('--> 答题异常，正在重试')
-            otherPlace = browser.find_element_by_id('app')
+            otherPlace = browser.find_element(By.ID, 'app')
             otherPlace.click()
             sleep(round(uniform(0.2, 0.8), 2))
 

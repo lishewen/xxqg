@@ -4,9 +4,11 @@ from re import compile
 from subprocess import Popen, PIPE, call
 from traceback import format_exc
 from zipfile import ZipFile
-import winreg
+# import winreg
 from json import loads
-
+from edgedriver_autoinstaller.utils import get_platform_architecture
+(PLATFROME, ARCH) = get_platform_architecture()
+EDGEDIRVER="msedgedriver.exe" if PLATFROME == 'win' else 'msedgedriver'
 
 def do(program_path):
     """
