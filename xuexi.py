@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
-import os
 from json import dumps
 from ssl import SSLEOFError
 from subprocess import call
 from traceback import format_exc
-from selenium.webdriver import Edge
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from requests.exceptions import SSLError
 from urllib3.exceptions import MaxRetryError
