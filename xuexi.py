@@ -116,8 +116,10 @@ if __name__ == "__main__":
         options.add_argument('--ignore-certificate-errors')  # 忽略证书错误
         options.add_argument('--ignore-ssl-errors')  # 忽略ssl错误
         options.add_argument('–log-level=3')
+        if get_chromedriver.PLATFROME == 'linux':
+            options.binary_location = '/opt/apps/com.browser.softedge.stable/files/msedge'
 
-        if get_chromedriver.PLATFROME == 'win':
+        if get_chromedriver.PLATFROME == 'win' or get_chromedriver.PLATFROME == 'linux':
             browser = XuexiEdge(
                 path.join(getcwd(), get_chromedriver.EDGEDIRVER), options=options)
         else:
