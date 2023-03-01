@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from custom.xuexi_edge import XuexiEdge
 from userOperation import check
+from selenium.webdriver import ActionChains
 
 
 def click(browser: XuexiEdge, element: WebElement):
@@ -116,6 +117,45 @@ def select_all(options):
     for i in range(len(options)):
         sleep(round(uniform(0.2, 0.8), 2))
         options[i].click()
+
+
+def get_track(distance):      # distance为传入的总距离
+    # 移动轨迹
+    track = []
+    # 当前位移
+    current = 0
+    # 减速阈值
+    mid = distance*4/5
+    # 计算间隔
+    t = 0.2
+    # 初速度
+    v = 1
+
+    while current < distance:
+        if current < mid:
+            # 加速度为2
+            a = 4
+        else:
+            # 加速度为-2
+            a = -3
+        v0 = v
+        # 当前速度
+        v = v0+a*t
+        # 移动距离
+        move = v0*t+1/2*a*t*t
+        # 当前位移
+        current += move
+        # 加入轨迹
+        track.append(round(move))
+    return track
+
+
+def move_to_gap(browser: XuexiEdge, slider, tracks):     # slider是要移动的滑块,tracks是要传入的移动轨迹
+    ActionChains(browser).click_and_hold(slider).perform()
+    for x in tracks:
+        ActionChains(browser).move_by_offset(xoffset=x, yoffset=0).perform()
+    sleep(0.5)
+    ActionChains(browser).release().perform()
 
 
 def run_exam(browser: XuexiEdge):
@@ -260,8 +300,13 @@ def run_exam(browser: XuexiEdge):
                 submit = browser.find_element(
                     by=By.CLASS_NAME, value='submit-btn')
                 submit.click()
-                browser.implicitly_wait(10)
+
                 sleep(round(uniform(2.6, 4.6), 2))
+                huakuai = browser.find_element(By.ID, 'nc_1_n1z')
+
+                move_to_gap(browser, huakuai, get_track(300))
+
+                browser.implicitly_wait(10)
             except NoSuchElementException:
                 submit = browser.find_element(
                     by=By.CLASS_NAME, value='ant-btn-primary')
