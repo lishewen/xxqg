@@ -297,15 +297,16 @@ def run_exam(browser: XuexiEdge):
         if questionIndex == questionCount:
             sleep(round(uniform(0.2, 0.8), 2))
             try:
-                submit = browser.find_element(
-                    by=By.CLASS_NAME, value='submit-btn')
-                submit.click()
-
                 sleep(round(uniform(2.6, 4.6), 2))
                 huakuai = browser.find_element(By.ID, 'nc_1_n1z')
+                if huakuai is not None:
+                    move_to_gap(browser, huakuai, get_track(300))
 
-                move_to_gap(browser, huakuai, get_track(300))
-
+                sleep(round(uniform(2.6, 4.6), 2))
+                submit = browser.find_element(                    by=By.CLASS_NAME, value='submit-btn')
+                if submit is not None:
+                    submit.click()
+                    
                 browser.implicitly_wait(10)
             except NoSuchElementException:
                 submit = browser.find_element(
