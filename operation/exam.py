@@ -303,10 +303,11 @@ def run_exam(browser: XuexiEdge):
                     move_to_gap(browser, huakuai, get_track(300))
 
                 sleep(round(uniform(2.6, 4.6), 2))
-                submit = browser.find_element(                    by=By.CLASS_NAME, value='submit-btn')
+                submit = browser.find_element(
+                    by=By.CLASS_NAME, value='submit-btn')
                 if submit is not None:
                     submit.click()
-                    
+
                 browser.implicitly_wait(10)
             except NoSuchElementException:
                 submit = browser.find_element(
