@@ -296,10 +296,12 @@ def run_exam(browser: XuexiEdge):
 
         if questionIndex == questionCount:
             sleep(round(uniform(0.2, 0.8), 2))
-            
-            huakuai = browser.find_element(By.ID, 'nc_1_n1z')
-            if huakuai is not None:
-                move_to_gap(browser, huakuai, get_track(300))
+            try:
+                huakuai = browser.find_element(By.ID, 'nc_1_n1z')
+                if huakuai is not None:
+                    move_to_gap(browser, huakuai, get_track(300))
+            except:
+                print('--> 没有滑块')
             try:
                 sleep(round(uniform(2.6, 4.6), 2))
                 submit = browser.find_element(

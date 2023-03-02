@@ -112,7 +112,8 @@ if __name__ == "__main__":
             'excludeSwitches', ['enable-automation'])
         options.add_experimental_option('useAutomationExtension', False)
         options.add_experimental_option("detach", True)
-        options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57')
+        options.add_argument(
+            'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57')
         options.add_argument("--mute-audio")  # 静音
         options.add_experimental_option(
             'excludeSwitches', ['enable-logging'])  # 禁止打印日志
@@ -122,12 +123,8 @@ if __name__ == "__main__":
         if get_chromedriver.PLATFROME == 'linux':
             options.binary_location = '/opt/apps/com.browser.softedge.stable/files/msedge'
 
-        if get_chromedriver.PLATFROME == 'win' or get_chromedriver.PLATFROME == 'linux':
-            browser = XuexiEdge(
-                path.join(getcwd(), get_chromedriver.EDGEDIRVER), options=options)
-        else:
-            browser = XuexiEdge(r'/usr/local/bin/msedgedriver',
-                                options=options)
+        browser = XuexiEdge(
+            path.join(getcwd(), get_chromedriver.EDGEDIRVER), options=options)
 
         # browser = Edge(os.path.join(os.getcwd(), 'msedgedriver.exe'), options=options)
         browser.maximize_window()
