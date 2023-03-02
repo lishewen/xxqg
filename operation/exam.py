@@ -154,7 +154,7 @@ def move_to_gap(browser: XuexiEdge, slider, tracks):     # slider是要移动的
     ActionChains(browser).click_and_hold(slider).perform()
     for x in tracks:
         ActionChains(browser).move_by_offset(xoffset=x, yoffset=0).perform()
-    sleep(0.5)
+        sleep(0.5)
     ActionChains(browser).release().perform()
 
 

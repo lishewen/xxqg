@@ -105,11 +105,14 @@ if __name__ == "__main__":
         options = EdgeOptions()
         options.use_chromium = True
         # 防止检测
+        # options.add_argument("--headless")
+        options.add_argument("--disable-blink-features")
         options.add_argument("--disable-blink-features=AutomationControlled")
         options.add_experimental_option(
             'excludeSwitches', ['enable-automation'])
         options.add_experimental_option('useAutomationExtension', False)
-
+        options.add_experimental_option("detach", True)
+        options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57')
         options.add_argument("--mute-audio")  # 静音
         options.add_experimental_option(
             'excludeSwitches', ['enable-logging'])  # 禁止打印日志
