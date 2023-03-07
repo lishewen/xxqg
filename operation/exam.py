@@ -309,6 +309,11 @@ def run_exam(browser: XuexiEdge):
                 if submit is not None:
                     submit.click()
 
+                if submit.text=='交 卷':
+                    huakuai = browser.find_element(By.ID, 'nc_1_n1z')
+                    if huakuai is not None:
+                        move_to_gap(browser, huakuai, get_track(300))
+
                 browser.implicitly_wait(10)
             except NoSuchElementException:
                 submit = browser.find_element(
